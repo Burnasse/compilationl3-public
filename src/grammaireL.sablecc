@@ -2,12 +2,45 @@ Package sc;
 
 Helpers
 
-lettre = [['a' .. 'z'] + ['A' .. 'Z']];
+lt = [['a' .. 'z'] + ['A' .. 'Z']];
+nb = ['0'..'9']+;
 
 Tokens
 
+nombre = nb;
+
 espaces = (' ' | 13 | 10)+;
 commentaire= '#' [[0 .. 0xffff] - [10 + 13]]* (10 | 13 | 10 13);
+symbplus ='+';
+symbmoins ='-';
+symbmult ='*';
+symbdiv ='/';
+symbou = '|';
+symbet = '&';
+symbnon = '!';
+symbmod ='%';
+ouvrepar ='(';
+fermepar =')';
+symbinf = '<';
+symbeq = '=';
+fermeacc = '}';
+ouvreacc = '{';
+pointvirg = ';';
+ouvrecro = '[';
+fermecro = ']';
+virg = ',';
+motecrire = 'ecrire';
+motlire = 'lire';
+motsi = 'si';
+mottantque = 'tantque';
+motsinon = 'sinon';
+motretour = 'retour';
+motfaire = 'faire';
+motalors = 'alors';
+motentier = 'entier';
+dollar = '$';
+
+identificateur = lt (lt | nb | '_' | '$' )*;
 
 Ignored Tokens
 
@@ -15,5 +48,91 @@ espaces, commentaire;
 
 Productions
 
-programme = optdecvar listedecfonc ;
+programme =
+    {dclfct} globdeclaration listefonction | ;
 
+expression =
+    {ou} expression symbou et |
+    {et} et | ;
+
+et =
+	{et} et symbet infequal |
+	{inf} infequal;
+
+infequal =
+    {inf} infequal symbinf moinsplus |
+    {eq} infequal symbeq moinsplus |
+    {sub} moinsplus;
+
+moinsplus =
+    {add} moinsplus symbplus multdiv |
+    {sous} moinsplus symbmoins multdiv|
+    {multdiv} multdiv;
+
+multdiv =
+    {mult} multdiv symbmult non |
+    {div} multdiv symbdiv non |
+    {non} non;
+
+non =
+	{no}symbnon non |
+	{par}parentheses;
+
+parentheses =
+	{par}ouvrepar expression fermepar |
+	{nb}nombre |
+	{id}identificateur |
+	{tab}tableau |
+	{fct}fonction;
+
+listexpression = {list} expression virg listexpression | {uniq}expression;
+
+globdeclaration = {listglodclr} listedeclaration pointvirg | ;
+
+tableau =
+    {vide}identificateur ouvrecro fermecro |
+    {nonvide} identificateur ouvrecro nombre fermecro;
+
+declaration =
+    {var} motentier identificateur |
+    {tab} motentier tableau;
+
+listedeclaration =
+    {list} declaration virg listedeclaration |
+    {declar} declaration | ;
+
+fctecrire = motecrire ouvrepar expression fermepar;
+fctlire = motlire ouvrepar expression fermepar;
+fctretour = motretour expression pointvirg;
+
+fonction =
+    {ecrire} fctecrire |
+    {lire} fctlire |
+    {fct} identificateur ouvrepar listexpression fermepar;
+
+si = motsi expression motalors ouvreacc listinstruction fermeacc;
+
+sinon = motsinon expression ouvreacc listinstruction fermeacc;
+
+condition =
+    {si} si |
+    {sinon} si sinon;
+
+boucle = mottantque expression motfaire ouvreacc listinstruction fermeacc;
+
+instruction =
+    {condition} condition |
+    {boucle} boucle |
+    {retour} fctretour |
+    {assign} expression pointvirg;
+
+listinstruction =
+    {listinstr} instruction listinstruction |
+    {instr} instruction;
+
+declarefonction =
+    identificateur ouvrepar [listdclr1]:listedeclaration fermepar [listdclr2]:listedeclaration ouvreacc listinstruction fermeacc;
+
+listefonction =
+    {listfct} declarefonction listefonction |
+    {fct} declarefonction;
