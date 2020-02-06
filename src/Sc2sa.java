@@ -7,7 +7,14 @@ public class Sc2sa extends DepthFirstAdapter {
     private SaNode returnValue;
 
     public void caseAProgramme(AProgramme node) {
-        super.caseAProgramme(node);
+        SaLDec vars;
+        SaLDec fonctions;
+
+        node.getGlobdeclaration().apply(this);
+        vars = (SaLDec) this.returnValue;
+        node.getListefonction().apply(this);
+        fonctions = (SaLDec) this.returnValue;
+        this.returnValue = new SaProg(vars, fonctions);
     }
 
     public void caseAOuExpression(AOuExpression node) {
@@ -22,7 +29,7 @@ public class Sc2sa extends DepthFirstAdapter {
     }
 
     public void caseAEtExpression(AEtExpression node) {
-        // je sais pas
+        node.getEt().apply(this);
     }
 
     public void caseAEtEt(AEtEt node) {
@@ -37,7 +44,7 @@ public class Sc2sa extends DepthFirstAdapter {
     }
 
     public void caseAInfEt(AInfEt node) {
-        // je sais pas
+        node.apply(this);
     }
 
     public void caseAInfInfequal(AInfInfequal node) {
@@ -63,7 +70,7 @@ public class Sc2sa extends DepthFirstAdapter {
     }
 
     public void caseASubInfequal(ASubInfequal node) {
-        // je sais pas
+        node.apply(this);
     }
 
     public void caseAAddMoinsplus(AAddMoinsplus node) {
@@ -90,7 +97,7 @@ public class Sc2sa extends DepthFirstAdapter {
 
     public void caseAMultdivMoinsplus(AMultdivMoinsplus node) {
 
-        // j'sais pas
+        node.apply(this);
     }
 
     public void caseAMultMultdiv(AMultMultdiv node) {
@@ -116,7 +123,7 @@ public class Sc2sa extends DepthFirstAdapter {
     }
 
     public void caseANonMultdiv(ANonMultdiv node) {
-        // je sais pas
+        node.apply(this);
     }
 
     public void caseANoNon(ANoNon node) {
@@ -128,7 +135,7 @@ public class Sc2sa extends DepthFirstAdapter {
     }
 
     public void caseAParNon(AParNon node) {
-        // je sais pas
+        node.apply(this);
     }
 
     public void caseAParParentheses(AParParentheses node) {
@@ -156,7 +163,7 @@ public class Sc2sa extends DepthFirstAdapter {
     }
 
     public void caseAFctParentheses(AFctParentheses node) {
-        // je sais pas
+        node.apply(this);
     }
 
     public void caseAListListexpression(AListListexpression node) {
@@ -279,11 +286,11 @@ public class Sc2sa extends DepthFirstAdapter {
     }
 
     public void caseAEcrireFonction(AEcrireFonction node) {
-        // je sais pas
+        node.apply(this);
     }
 
     public void caseALireFonction(ALireFonction node) {
-        // je sais pas
+        node.apply(this);
     }
 
     public void caseAFctFonction(AFctFonction node) {
@@ -325,11 +332,11 @@ public class Sc2sa extends DepthFirstAdapter {
     }
 
     public void caseASiCondition(ASiCondition node) {
-        //je sais pas
+        node.apply(this);
     }
 
     public void caseASinonCondition(ASinonCondition node) {
-        // je sais toujours pas
+        node.apply(this);
     }
 
     public void caseABoucle(ABoucle node) {
@@ -345,15 +352,15 @@ public class Sc2sa extends DepthFirstAdapter {
     }
 
     public void caseAConditionInstruction(AConditionInstruction node) {
-        //chepoi
+        node.apply(this);
     }
 
     public void caseABoucleInstruction(ABoucleInstruction node) {
-        //chepoi2
+        node.apply(this);
     }
 
     public void caseARetourInstruction(ARetourInstruction node) {
-        //chepoi3
+        node.apply(this);
     }
 
     public void caseAAssignInstruction(AAssignInstruction node) {
@@ -403,9 +410,7 @@ public class Sc2sa extends DepthFirstAdapter {
     }
 
     public void caseAListfctListefonction(AListfctListefonction node) {
-        //Chepoi jpp
-
-
+        node.apply(this);
     }
 
     public void caseAFctListefonction(AFctListefonction node) {
@@ -416,4 +421,7 @@ public class Sc2sa extends DepthFirstAdapter {
 
     }
 
+    public SaNode getRoot() {
+        return returnValue;
+    }
 }
