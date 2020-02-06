@@ -15,6 +15,7 @@ public class Compiler
 	PushbackReader br = null;
 	String baseName = null;
 	try {
+
 	    if (0 < args.length) {
 		br = new PushbackReader(new FileReader(args[0]));
 		baseName = removeSuffix(args[0], ".l");

@@ -49,11 +49,11 @@ espaces, commentaire;
 Productions
 
 programme =
-    {dclfct} globdeclaration listefonction | ;
+    globdeclaration? listefonction?;
 
 expression =
     {ou} expression symbou et |
-    {et} et | ;
+    {et} et;
 
 et =
 	{et} et symbet infequal |
@@ -85,9 +85,9 @@ parentheses =
 	{tab}tableau |
 	{fct}fonction;
 
-listexpression = {list} expression virg listexpression | {uniq}expression;
+listexpression = {list} expression virg listexpression | {unique}expression;
 
-globdeclaration = {listglodclr} listedeclaration pointvirg | ;
+globdeclaration = {listglodeclar} listedeclaration pointvirg;
 
 tableau =
     {vide}identificateur ouvrecro fermecro |
@@ -103,35 +103,37 @@ listedeclaration =
 
 fctecrire = motecrire ouvrepar expression fermepar;
 fctlire = motlire ouvrepar expression fermepar;
-fctretour = motretour expression pointvirg;
+fctretour =
+    {exp} motretour ouvrepar expression fermepar |
+    {id}motretour identificateur;
 
 fonction =
     {ecrire} fctecrire |
     {lire} fctlire |
-    {fct} identificateur ouvrepar listexpression fermepar;
+    {fct} identificateur ouvrepar listexpression? fermepar;
 
-si = motsi expression motalors ouvreacc listinstruction fermeacc;
+si = motsi expression motalors ouvreacc listinstruction? fermeacc;
 
-sinon = motsinon expression ouvreacc listinstruction fermeacc;
+sinon = motsinon expression? ouvreacc listinstruction? fermeacc;
 
 condition =
     {si} si |
     {sinon} si sinon;
 
-boucle = mottantque expression motfaire ouvreacc listinstruction fermeacc;
+boucle = mottantque expression motfaire ouvreacc listinstruction? fermeacc;
 
 instruction =
     {condition} condition |
     {boucle} boucle |
-    {retour} fctretour |
+    {retour} fctretour pointvirg|
     {assign} expression pointvirg;
 
 listinstruction =
     {listinstr} instruction listinstruction |
-    {instr} instruction;
+    {instr} instruction ;
 
 declarefonction =
-    identificateur ouvrepar [listdclr1]:listedeclaration fermepar [listdclr2]:listedeclaration ouvreacc listinstruction fermeacc;
+    identificateur ouvrepar [listdclr1]:listedeclaration fermepar [listdclr2]:listedeclaration pointvirg? ouvreacc listinstruction? fermeacc;
 
 listefonction =
     {listfct} declarefonction listefonction |
