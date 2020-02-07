@@ -54,7 +54,7 @@ optdecvar = listedecvar point_virgule;
 
 listedecvar =
 {decvarldecvar} decvar listedecvarbis |
-{decvar} decvar;
+af
 
 listedecvarbis =
 {decvarldecvar} virgule decvar listedecvarbis|
