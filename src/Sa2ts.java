@@ -3,7 +3,7 @@ import ts.Ts;
 import ts.TsItemFct;
 import ts.TsItemVar;
 
-public class Sa2ts extends SaDepthFirstVisitor<Void> {
+public class Sa2ts <T> extends SaDepthFirstVisitor<T> {
     /*
     Hash ->
             fonctions -> noms variables | TsItemVar
@@ -22,7 +22,7 @@ public class Sa2ts extends SaDepthFirstVisitor<Void> {
     }
 
     @Override
-    public Void visit(SaDecTab node) {
+    public T visit(SaDecTab node) {
         System.out.println("1");
 
         if (/*item.isParam  || */table.variables.containsKey(node.getNom()))
@@ -30,32 +30,38 @@ public class Sa2ts extends SaDepthFirstVisitor<Void> {
 
         table.addVar(node.getNom(), node.getTaille());
 
-        return super.visit(node);
+        TsItemVar itemVar = new TsItemVar(node.getNom(),node.getTaille());
+        return (T) itemVar;
     }
 
     @Override
-    public Void visit(SaDecFonc node) {
+    public T visit(SaDecFonc node) {
 
         if (table.fonctions.containsKey(node.getNom()))
             return super.visit(node);
 
+        TsItemFct fct = new TsItemFct(node.getNom(),1,table,node);
+
         table.addFct(node.getNom(), 1, table, node);
 
-        return super.visit(node);
+        return (T) fct;
     }
 
     @Override
-    public Void visit(SaDecVar node) {
+    public T visit(SaDecVar node) {
         System.out.println("2");
         if (table.variables.containsKey(node.getNom()))
             return super.visit(node);
 
         table.addVar(node.getNom(), 1);
-        return super.visit(node);
+
+
+        TsItemVar itemVar = new TsItemVar(node.getNom(),1);
+        return (T) itemVar;
     }
 
     @Override
-    public Void visit(SaVarSimple node) {
+    public T visit(SaVarSimple node) {
         System.out.println("3");
 
         if (table.variables.containsKey(node.getNom()))
@@ -69,11 +75,12 @@ public class Sa2ts extends SaDepthFirstVisitor<Void> {
         if (table.variables.containsKey(node.getNom()))
             return super.visit(node);
 
-        return super.visit(node);
+        TsItemVar itemVar = new TsItemVar(node.getNom(),1);
+        return (T) itemVar;
     }
 
     @Override
-    public Void visit(SaAppel node) {
+    public T visit(SaAppel node) {
         System.out.println("4");
         if (!table.fonctions.containsKey(node.getNom()))
             return super.visit(node);
@@ -86,7 +93,7 @@ public class Sa2ts extends SaDepthFirstVisitor<Void> {
     }
 
     @Override
-    public Void visit(SaVarIndicee node) {
+    public T visit(SaVarIndicee node) {
         System.out.println("5");
 
         if (node.getIndice() == null)
@@ -103,7 +110,8 @@ public class Sa2ts extends SaDepthFirstVisitor<Void> {
         if (table.variables.containsKey(node.getNom()))
             return super.visit(node);
 
-        return super.visit(node);
+        TsItemVar itemVar = new TsItemVar(node.getNom(),1);
+        return (T) itemVar;
     }
 
     public Ts getTableGlobale() {

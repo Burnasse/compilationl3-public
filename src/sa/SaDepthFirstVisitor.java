@@ -89,14 +89,11 @@ public class SaDepthFirstVisitor <T> implements SaVisitor <T>{
 
 	// DEC -> var id taille
 	public T visit(SaDecTab node){
-    	/*
+
 	defaultIn(node);
 	defaultOut(node);
 	return null;
-    	 */
 
-		TsItemVar itemVar = new TsItemVar(node.tsItem.identif,node.tsItem.getTaille());
-		return (T) itemVar;
 	}
 
 	public T visit(SaExp node)
