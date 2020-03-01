@@ -32,6 +32,7 @@ public class Sc2sa extends DepthFirstAdapter {
     @Override
     public void caseAOptdecvar(AOptdecvar node) {
         super.caseAOptdecvar(node);
+
     }
 
     @Override
@@ -49,7 +50,12 @@ public class Sc2sa extends DepthFirstAdapter {
 
     @Override
     public void caseADecvarListedecvar(ADecvarListedecvar node) {
-        returnValue = null;
+        SaDec op1;
+
+        node.getDecvar().apply(this);
+        op1 = (SaDec) returnValue;
+
+        returnValue = new SaLDec(op1, null);
     }
 
     @Override
@@ -67,7 +73,13 @@ public class Sc2sa extends DepthFirstAdapter {
 
     @Override
     public void caseADecvarListedecvarbis(ADecvarListedecvarbis node) {
-        returnValue = null;
+        SaDec op1;
+        SaLDec op2;
+
+        node.getDecvar().apply(this);
+        op1 = (SaDec) returnValue;
+
+        returnValue = new SaLDec(op1, null);
     }
 
     @Override
@@ -78,6 +90,7 @@ public class Sc2sa extends DepthFirstAdapter {
     @Override
     public void caseADecvartableauDecvar(ADecvartableauDecvar node) {
         returnValue = new SaDecTab(node.getIdentif().getText(), node.getNombre().getLine());
+        super.caseADecvartableauDecvar(node);
     }
 
     @Override
@@ -445,7 +458,8 @@ public class Sc2sa extends DepthFirstAdapter {
 
     @Override
     public void caseANombreExp6(ANombreExp6 node) {
-        returnValue = new SaExpInt(node.getNombre().getLine());
+        returnValue = new SaExpInt(Integer.parseInt(node.getNombre().getText()));
+        super.caseANombreExp6(node);
     }
 
     @Override
@@ -476,6 +490,7 @@ public class Sc2sa extends DepthFirstAdapter {
     @Override
     public void caseALireExp6(ALireExp6 node) {
         returnValue = new SaExpLire();
+        super.caseALireExp6(node);
     }
 
     @Override
@@ -492,6 +507,7 @@ public class Sc2sa extends DepthFirstAdapter {
     @Override
     public void caseAVarsimpleVar(AVarsimpleVar node) {
         returnValue = new SaVarSimple(node.getIdentif().getText());
+        super.caseAVarsimpleVar(node);
     }
 
     @Override
