@@ -85,6 +85,7 @@ public class Sc2sa extends DepthFirstAdapter {
     @Override
     public void caseADecvarentierDecvar(ADecvarentierDecvar node) {
         returnValue = new SaDecVar(node.getIdentif().getText());
+        super.caseADecvarentierDecvar(node);
     }
 
     @Override

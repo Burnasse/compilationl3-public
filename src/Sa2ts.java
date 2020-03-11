@@ -38,29 +38,24 @@ public class Sa2ts extends SaDepthFirstVisitor <Void> {
 
     @Override
     public Void visit(SaDecFonc node) {
-        System.out.println("salutm");
+        System.out.println("SaDecFonc");
 
         node.getCorps().accept(this);
 
         if (table.fonctions.containsKey(node.getNom()))
             return super.visit(node);
 
-
-
         if(node.getParametres() == null)
             table.addFct(node.getNom(), 0, new Ts(), node);
         else
             table.addFct(node.getNom(), node.getParametres().length(), new Ts(), node);
-
-
-
 
         return null;
     }
 
     @Override
     public Void visit(SaDecVar node) {
-        System.out.println("2");
+        System.out.println("SaDecVar");
         if (table.variables.containsKey(node.getNom()))
             return super.visit(node);
 
@@ -71,41 +66,37 @@ public class Sa2ts extends SaDepthFirstVisitor <Void> {
 
     @Override
     public Void visit(SaVarSimple node) {
-        System.out.println("3");
+        System.out.println("SaVarSimple");
 
-        if (table.variables.containsKey(node.getNom()))
-            return super.visit(node);
+        if (table.variables.containsKey(node.getNom())){
+            return null;
+        }
 
         for (TsItemFct fct : table.fonctions.values()) {
             if (fct.getTable().variables.containsKey(node.getNom()))
                 return super.visit(node);
         }
-
-        if (table.variables.containsKey(node.getNom()))
-            return super.visit(node);
-
-        table.addVar(node.getNom(),1);
+        table.addParam(node.getNom());
 
         return null;
     }
 
     @Override
     public Void visit(SaAppel node) {
-        System.out.println("4");
+        System.out.println("SaAppel");
 
         if (!table.fonctions.containsKey(node.getNom()))
-            return super.visit(node);
-        if (node.getArguments().length() != table.getFct(node.getNom()).nbArgs)
-            return super.visit(node);
+            return null;
         if (table.fonctions.containsKey("main") && table.getFct("main").nbArgs == 0)
-            return super.visit(node);
+            return null;
 
+        System.out.println("error");
         return null;
     }
 
     @Override
     public Void visit(SaVarIndicee node) {
-        System.out.println("5");
+        System.out.println("SaVarIndicee");
 
         if (node.getIndice() == null)
             return super.visit(node);
@@ -117,6 +108,8 @@ public class Sa2ts extends SaDepthFirstVisitor <Void> {
             if (fct.getTable().variables.containsKey(node.getNom()))
                 return super.visit(node);
         }
+
+
 
         if (table.variables.containsKey(node.getNom()))
             return super.visit(node);
