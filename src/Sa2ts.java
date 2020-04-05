@@ -76,7 +76,8 @@ public class Sa2ts extends SaDepthFirstVisitor <Void> {
             if (fct.getTable().variables.containsKey(node.getNom()))
                 return super.visit(node);
         }
-        table.addParam(node.getNom());
+
+        table.addVar(node.getNom(),1);
 
         return null;
     }
@@ -90,7 +91,7 @@ public class Sa2ts extends SaDepthFirstVisitor <Void> {
         if (table.fonctions.containsKey("main") && table.getFct("main").nbArgs == 0)
             return null;
 
-        System.out.println("error");
+        //System.out.println("error");
         return null;
     }
 
