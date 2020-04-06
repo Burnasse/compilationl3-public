@@ -1,0 +1,129 @@
+0 : ( 105 )		call	main	;
+1 : ( 2 )		mov	ebx,	0	; valeur de retour du programme
+2 : ( 3 )		mov	eax,	1	;
+3 : ( 4 )		int 0x80	;
+4 : ( 5 )	initialiser :	push	ebp	;sauvegarde la valeur de ebp
+5 : ( 6 )		mov	ebp,	esp	;nouvelle valeur de ebp
+6 : ( 7 )		sub	esp,	0	;allocation des variables locales
+7 : ( 8 )		mov	dword [tab+4*0],	8	;Affect
+8 : ( 9 )		mov	dword [tab+4*1],	6	;Affect
+9 : ( 10 )		mov	dword [tab+4*2],	9	;Affect
+10 : ( 11 )		mov	dword [tab+4*3],	9	;Affect
+11 : ( 12 )		mov	dword [tab+4*4],	4	;Affect
+12 : ( 13 )		mov	dword [tab+4*5],	2	;Affect
+13 : ( 14 )		mov	dword [tab+4*6],	3	;Affect
+14 : ( 15 )		mov	dword [tab+4*7],	1	;Affect
+15 : ( 16 )		mov	dword [tab+4*8],	4	;Affect
+16 : ( 17 )		mov	dword [tab+4*9],	5	;Affect
+17 : ( 18 )		add	esp,	0	;désallocation des variables locales
+18 : ( 19 )		pop	ebp	;restaure la valeur de ebp
+19 : ( 20 )		ret	;
+20 : ( 21 )	afficher :	push	ebp	;sauvegarde la valeur de ebp
+21 : ( 22 )		mov	ebp,	esp	;nouvelle valeur de ebp
+22 : ( 23 )		sub	esp,	4	;allocation des variables locales
+23 : ( 24 )		mov	dword [ebp-4*1],	0	;Affect
+24 : ( 25 )	l0 :	mov	r0,	1	;Affect
+25 : ( 26 )		mov	r17,	dword [ebp-4*1]	;JumpIfLess 1
+26 : ( 27 )		cmp	r17,	dword [ebp+4*3]	;on passe par un registre temporaire
+27 : ( 28 29 )		jl	l2	;JumpIfLess 2
+28 : ( 29 )		mov	r0,	0	;Affect
+29 : ( 30 )	l2 :	cmp	r0,	0	;JumpIfEqual 1
+30 : ( 31 37 )		je	l1	;JumpIfEqual 2
+31 : ( 32 )		mov	eax,	dword [tab+4*ebp-4*1]	;Write 1
+32 : ( )		call	iprintLF	;Write 2
+33 : ( 34 )		mov	r1,	dword [ebp-4*1]	;
+34 : ( 35 )		add	r1,	1	;
+35 : ( 36 )		mov	dword [ebp-4*1],	r1	;Affect
+36 : ( 24 )		jmp	l0	;Jump
+37 : ( 38 )	l1 :	mov	eax,	0	;Write 1
+38 : ( )		call	iprintLF	;Write 2
+39 : ( 40 )		add	esp,	4	;désallocation des variables locales
+40 : ( 41 )		pop	ebp	;restaure la valeur de ebp
+41 : ( 42 )		ret	;
+42 : ( 43 )	echanger :	push	ebp	;sauvegarde la valeur de ebp
+43 : ( 44 )		mov	ebp,	esp	;nouvelle valeur de ebp
+44 : ( 45 )		sub	esp,	4	;allocation des variables locales
+45 : ( 46 )		mov	r20,	dword [tab+4*ebp+4*3]	;Affect
+46 : ( 47 )		mov	dword [ebp-4*1],	r20	;on passe par un registre temporaire
+47 : ( 48 )		mov	r21,	dword [tab+4*ebp+4*4]	;Affect
+48 : ( 49 )		mov	dword [tab+4*ebp+4*3],	r21	;on passe par un registre temporaire
+49 : ( 50 )		mov	r22,	dword [ebp-4*1]	;Affect
+50 : ( 51 )		mov	dword [tab+4*ebp+4*4],	r22	;on passe par un registre temporaire
+51 : ( 52 )		add	esp,	4	;désallocation des variables locales
+52 : ( 53 )		pop	ebp	;restaure la valeur de ebp
+53 : ( 54 )		ret	;
+54 : ( 55 )	trier :	push	ebp	;sauvegarde la valeur de ebp
+55 : ( 56 )		mov	ebp,	esp	;nouvelle valeur de ebp
+56 : ( 57 )		sub	esp,	12	;allocation des variables locales
+57 : ( 58 )		mov	r23,	dword [ebp+4*3]	;Affect
+58 : ( 59 )		mov	dword [ebp-4*3],	r23	;on passe par un registre temporaire
+59 : ( 60 )		mov	dword [ebp-4*1],	1	;Affect
+60 : ( 61 )	l3 :	mov	r2,	1	;Affect
+61 : ( 62 )		cmp	dword [ebp-4*1],	1	;JumpIfEqual 1
+62 : ( 63 64 )		je	l5	;JumpIfEqual 2
+63 : ( 64 )		mov	r2,	0	;Affect
+64 : ( 65 )	l5 :	cmp	r2,	0	;JumpIfEqual 1
+65 : ( 66 102 )		je	l4	;JumpIfEqual 2
+66 : ( 67 )		mov	dword [ebp-4*1],	0	;Affect
+67 : ( 68 )		mov	dword [ebp-4*2],	0	;Affect
+68 : ( 69 )	l6 :	mov	r4,	dword [ebp-4*3]	;
+69 : ( 70 )		sub	r4,	1	;
+70 : ( 71 )		mov	r3,	1	;Affect
+71 : ( 72 )		cmp	dword [ebp-4*2],	r4	;JumpIfLess 1
+72 : ( 73 74 )		jl	l8	;JumpIfLess 2
+73 : ( 74 )		mov	r3,	0	;Affect
+74 : ( 75 )	l8 :	cmp	r3,	0	;JumpIfEqual 1
+75 : ( 76 98 )		je	l7	;JumpIfEqual 2
+76 : ( 77 )		mov	r6,	dword [ebp-4*2]	;
+77 : ( 78 )		add	r6,	1	;
+78 : ( 79 )		mov	r5,	1	;Affect
+79 : ( 80 )		mov	r24,	dword [tab+4*r6]	;JumpIfLess 1
+80 : ( 81 )		cmp	r24,	dword [tab+4*ebp-4*2]	;on passe par un registre temporaire
+81 : ( 82 83 )		jl	l11	;JumpIfLess 2
+82 : ( 83 )		mov	r5,	0	;Affect
+83 : ( 84 )	l11 :	cmp	r5,	0	;JumpIfEqual 1
+84 : ( 85 94 )		je	l10	;JumpIfEqual 2
+85 : ( 86 )		push	dword [ebp-4*2]	;Param
+86 : ( 87 )		mov	r8,	dword [ebp-4*2]	;
+87 : ( 88 )		add	r8,	1	;
+88 : ( 89 )		push	r8	;Param
+89 : ( 90 )		sub	esp,	4	;allocation mémoire pour la valeur de retour
+90 : ( 42 )		call	echanger	;
+91 : ( 92 )		pop	r7	;récupération de la valeur de retour
+92 : ( 93 )		add	esp,	8	;désallocation des arguments
+93 : ( 94 )		mov	dword [ebp-4*1],	1	;Affect
+94 : ( 95 )	l10 :	mov	r9,	dword [ebp-4*2]	;
+95 : ( 96 )		add	r9,	1	;
+96 : ( 97 )		mov	dword [ebp-4*2],	r9	;Affect
+97 : ( 68 )		jmp	l6	;Jump
+98 : ( 99 )	l7 :	mov	r10,	dword [ebp-4*3]	;
+99 : ( 100 )		sub	r10,	1	;
+100 : ( 101 )		mov	dword [ebp-4*3],	r10	;Affect
+101 : ( 60 )		jmp	l3	;Jump
+102 : ( 103 )	l4 :	add	esp,	12	;désallocation des variables locales
+103 : ( 104 )		pop	ebp	;restaure la valeur de ebp
+104 : ( 105 )		ret	;
+105 : ( 106 )	main :	push	ebp	;sauvegarde la valeur de ebp
+106 : ( 107 )		mov	ebp,	esp	;nouvelle valeur de ebp
+107 : ( 108 )		sub	esp,	0	;allocation des variables locales
+108 : ( 109 )		sub	esp,	4	;allocation mémoire pour la valeur de retour
+109 : ( 4 )		call	initialiser	;
+110 : ( 111 )		pop	r11	;récupération de la valeur de retour
+111 : ( 112 )		push	10	;Param
+112 : ( 113 )		sub	esp,	4	;allocation mémoire pour la valeur de retour
+113 : ( 20 )		call	afficher	;
+114 : ( 115 )		pop	r12	;récupération de la valeur de retour
+115 : ( 116 )		add	esp,	4	;désallocation des arguments
+116 : ( 117 )		push	10	;Param
+117 : ( 118 )		sub	esp,	4	;allocation mémoire pour la valeur de retour
+118 : ( 54 )		call	trier	;
+119 : ( 120 )		pop	r13	;récupération de la valeur de retour
+120 : ( 121 )		add	esp,	4	;désallocation des arguments
+121 : ( 122 )		push	10	;Param
+122 : ( 123 )		sub	esp,	4	;allocation mémoire pour la valeur de retour
+123 : ( 20 )		call	afficher	;
+124 : ( 125 )		pop	r14	;récupération de la valeur de retour
+125 : ( 126 )		add	esp,	4	;désallocation des arguments
+126 : ( 127 )		add	esp,	0	;désallocation des variables locales
+127 : ( 128 )		pop	ebp	;restaure la valeur de ebp
+128 : ( )		ret	;

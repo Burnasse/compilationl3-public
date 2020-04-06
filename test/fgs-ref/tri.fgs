@@ -1,0 +1,130 @@
+iter num = 9
+use = () def = ()	in = ()	 	out = ()	 		call	main	;
+use = () def = (15 )	in = ()	 	out = ()	 		mov	ebx,	0	; valeur de retour du programme
+use = () def = (16 )	in = ()	 	out = ()	 		mov	eax,	1	;
+use = () def = ()	in = ()	 	out = ()	 		int 0x80	;
+use = () def = ()	in = ()	 	out = ()	 	initialiser :	push	ebp	;sauvegarde la valeur de ebp
+use = () def = ()	in = ()	 	out = ()	 		mov	ebp,	esp	;nouvelle valeur de ebp
+use = () def = ()	in = ()	 	out = ()	 		sub	esp,	0	;allocation des variables locales
+use = () def = ()	in = ()	 	out = ()	 		mov	dword [tab+4*0],	8	;Affect
+use = () def = ()	in = ()	 	out = ()	 		mov	dword [tab+4*1],	6	;Affect
+use = () def = ()	in = ()	 	out = ()	 		mov	dword [tab+4*2],	9	;Affect
+use = () def = ()	in = ()	 	out = ()	 		mov	dword [tab+4*3],	9	;Affect
+use = () def = ()	in = ()	 	out = ()	 		mov	dword [tab+4*4],	4	;Affect
+use = () def = ()	in = ()	 	out = ()	 		mov	dword [tab+4*5],	2	;Affect
+use = () def = ()	in = ()	 	out = ()	 		mov	dword [tab+4*6],	3	;Affect
+use = () def = ()	in = ()	 	out = ()	 		mov	dword [tab+4*7],	1	;Affect
+use = () def = ()	in = ()	 	out = ()	 		mov	dword [tab+4*8],	4	;Affect
+use = () def = ()	in = ()	 	out = ()	 		mov	dword [tab+4*9],	5	;Affect
+use = () def = ()	in = ()	 	out = ()	 		add	esp,	0	;désallocation des variables locales
+use = () def = ()	in = ()	 	out = ()	 		pop	ebp	;restaure la valeur de ebp
+use = () def = ()	in = ()	 	out = ()	 		ret	;
+use = () def = ()	in = ()	 	out = ()	 	afficher :	push	ebp	;sauvegarde la valeur de ebp
+use = () def = ()	in = ()	 	out = ()	 		mov	ebp,	esp	;nouvelle valeur de ebp
+use = () def = ()	in = ()	 	out = ()	 		sub	esp,	4	;allocation des variables locales
+use = () def = ()	in = ()	 	out = ()	 		mov	dword [ebp-4*1],	0	;Affect
+use = () def = (0 )	in = ()	 	out = (0 )	 	l0 :	mov	r0,	1	;Affect
+use = () def = (17 )	in = (0 )	 	out = (0 17 )	 		mov	r17,	dword [ebp-4*1]	;JumpIfLess 1
+use = (17 ) def = ()	in = (0 17 )	 	out = (0 )	 		cmp	r17,	dword [ebp+4*3]	;on passe par un registre temporaire
+use = () def = ()	in = (0 )	 	out = (0 )	 		jl	l2	;JumpIfLess 2
+use = () def = (0 )	in = ()	 	out = (0 )	 		mov	r0,	0	;Affect
+use = (0 ) def = ()	in = (0 )	 	out = ()	 	l2 :	cmp	r0,	0	;JumpIfEqual 1
+use = () def = ()	in = ()	 	out = ()	 		je	l1	;JumpIfEqual 2
+use = () def = (18 )	in = ()	 	out = ()	 		mov	eax,	dword [tab+4*ebp-4*1]	;Write 1
+use = () def = ()	in = ()	 	out = ()	 		call	iprintLF	;Write 2
+use = () def = (1 )	in = ()	 	out = (1 )	 		mov	r1,	dword [ebp-4*1]	;
+use = (1 ) def = (1 )	in = (1 )	 	out = (1 )	 		add	r1,	1	;
+use = (1 ) def = ()	in = (1 )	 	out = ()	 		mov	dword [ebp-4*1],	r1	;Affect
+use = () def = ()	in = ()	 	out = ()	 		jmp	l0	;Jump
+use = () def = (19 )	in = ()	 	out = ()	 	l1 :	mov	eax,	0	;Write 1
+use = () def = ()	in = ()	 	out = ()	 		call	iprintLF	;Write 2
+use = () def = ()	in = ()	 	out = ()	 		add	esp,	4	;désallocation des variables locales
+use = () def = ()	in = ()	 	out = ()	 		pop	ebp	;restaure la valeur de ebp
+use = () def = ()	in = ()	 	out = ()	 		ret	;
+use = () def = ()	in = ()	 	out = ()	 	echanger :	push	ebp	;sauvegarde la valeur de ebp
+use = () def = ()	in = ()	 	out = ()	 		mov	ebp,	esp	;nouvelle valeur de ebp
+use = () def = ()	in = ()	 	out = ()	 		sub	esp,	4	;allocation des variables locales
+use = () def = (20 )	in = ()	 	out = (20 )	 		mov	r20,	dword [tab+4*ebp+4*3]	;Affect
+use = (20 ) def = ()	in = (20 )	 	out = ()	 		mov	dword [ebp-4*1],	r20	;on passe par un registre temporaire
+use = () def = (21 )	in = ()	 	out = (21 )	 		mov	r21,	dword [tab+4*ebp+4*4]	;Affect
+use = (21 ) def = ()	in = (21 )	 	out = ()	 		mov	dword [tab+4*ebp+4*3],	r21	;on passe par un registre temporaire
+use = () def = (22 )	in = ()	 	out = (22 )	 		mov	r22,	dword [ebp-4*1]	;Affect
+use = (22 ) def = ()	in = (22 )	 	out = ()	 		mov	dword [tab+4*ebp+4*4],	r22	;on passe par un registre temporaire
+use = () def = ()	in = ()	 	out = ()	 		add	esp,	4	;désallocation des variables locales
+use = () def = ()	in = ()	 	out = ()	 		pop	ebp	;restaure la valeur de ebp
+use = () def = ()	in = ()	 	out = ()	 		ret	;
+use = () def = ()	in = ()	 	out = ()	 	trier :	push	ebp	;sauvegarde la valeur de ebp
+use = () def = ()	in = ()	 	out = ()	 		mov	ebp,	esp	;nouvelle valeur de ebp
+use = () def = ()	in = ()	 	out = ()	 		sub	esp,	12	;allocation des variables locales
+use = () def = (23 )	in = ()	 	out = (23 )	 		mov	r23,	dword [ebp+4*3]	;Affect
+use = (23 ) def = ()	in = (23 )	 	out = ()	 		mov	dword [ebp-4*3],	r23	;on passe par un registre temporaire
+use = () def = ()	in = ()	 	out = ()	 		mov	dword [ebp-4*1],	1	;Affect
+use = () def = (2 )	in = ()	 	out = (2 )	 	l3 :	mov	r2,	1	;Affect
+use = () def = ()	in = (2 )	 	out = (2 )	 		cmp	dword [ebp-4*1],	1	;JumpIfEqual 1
+use = () def = ()	in = (2 )	 	out = (2 )	 		je	l5	;JumpIfEqual 2
+use = () def = (2 )	in = ()	 	out = (2 )	 		mov	r2,	0	;Affect
+use = (2 ) def = ()	in = (2 )	 	out = ()	 	l5 :	cmp	r2,	0	;JumpIfEqual 1
+use = () def = ()	in = ()	 	out = ()	 		je	l4	;JumpIfEqual 2
+use = () def = ()	in = ()	 	out = ()	 		mov	dword [ebp-4*1],	0	;Affect
+use = () def = ()	in = ()	 	out = ()	 		mov	dword [ebp-4*2],	0	;Affect
+use = () def = (4 )	in = ()	 	out = (4 )	 	l6 :	mov	r4,	dword [ebp-4*3]	;
+use = (4 ) def = (4 )	in = (4 )	 	out = (4 )	 		sub	r4,	1	;
+use = () def = (3 )	in = (4 )	 	out = (3 4 )	 		mov	r3,	1	;Affect
+use = (4 ) def = ()	in = (3 4 )	 	out = (3 )	 		cmp	dword [ebp-4*2],	r4	;JumpIfLess 1
+use = () def = ()	in = (3 )	 	out = (3 )	 		jl	l8	;JumpIfLess 2
+use = () def = (3 )	in = ()	 	out = (3 )	 		mov	r3,	0	;Affect
+use = (3 ) def = ()	in = (3 )	 	out = ()	 	l8 :	cmp	r3,	0	;JumpIfEqual 1
+use = () def = ()	in = ()	 	out = ()	 		je	l7	;JumpIfEqual 2
+use = () def = (6 )	in = ()	 	out = (6 )	 		mov	r6,	dword [ebp-4*2]	;
+use = (6 ) def = (6 )	in = (6 )	 	out = (6 )	 		add	r6,	1	;
+use = () def = (5 )	in = (6 )	 	out = (5 6 )	 		mov	r5,	1	;Affect
+use = (6 ) def = (24 )	in = (5 6 )	 	out = (5 24 )	 		mov	r24,	dword [tab+4*r6]	;JumpIfLess 1
+use = (24 ) def = ()	in = (5 24 )	 	out = (5 )	 		cmp	r24,	dword [tab+4*ebp-4*2]	;on passe par un registre temporaire
+use = () def = ()	in = (5 )	 	out = (5 )	 		jl	l11	;JumpIfLess 2
+use = () def = (5 )	in = ()	 	out = (5 )	 		mov	r5,	0	;Affect
+use = (5 ) def = ()	in = (5 )	 	out = ()	 	l11 :	cmp	r5,	0	;JumpIfEqual 1
+use = () def = ()	in = ()	 	out = ()	 		je	l10	;JumpIfEqual 2
+use = () def = ()	in = ()	 	out = ()	 		push	dword [ebp-4*2]	;Param
+use = () def = (8 )	in = ()	 	out = (8 )	 		mov	r8,	dword [ebp-4*2]	;
+use = (8 ) def = (8 )	in = (8 )	 	out = (8 )	 		add	r8,	1	;
+use = (8 ) def = ()	in = (8 )	 	out = ()	 		push	r8	;Param
+use = () def = ()	in = ()	 	out = ()	 		sub	esp,	4	;allocation mémoire pour la valeur de retour
+use = () def = ()	in = ()	 	out = ()	 		call	echanger	;
+use = () def = (7 )	in = ()	 	out = ()	 		pop	r7	;récupération de la valeur de retour
+use = () def = ()	in = ()	 	out = ()	 		add	esp,	8	;désallocation des arguments
+use = () def = ()	in = ()	 	out = ()	 		mov	dword [ebp-4*1],	1	;Affect
+use = () def = (9 )	in = ()	 	out = (9 )	 	l10 :	mov	r9,	dword [ebp-4*2]	;
+use = (9 ) def = (9 )	in = (9 )	 	out = (9 )	 		add	r9,	1	;
+use = (9 ) def = ()	in = (9 )	 	out = ()	 		mov	dword [ebp-4*2],	r9	;Affect
+use = () def = ()	in = ()	 	out = ()	 		jmp	l6	;Jump
+use = () def = (10 )	in = ()	 	out = (10 )	 	l7 :	mov	r10,	dword [ebp-4*3]	;
+use = (10 ) def = (10 )	in = (10 )	 	out = (10 )	 		sub	r10,	1	;
+use = (10 ) def = ()	in = (10 )	 	out = ()	 		mov	dword [ebp-4*3],	r10	;Affect
+use = () def = ()	in = ()	 	out = ()	 		jmp	l3	;Jump
+use = () def = ()	in = ()	 	out = ()	 	l4 :	add	esp,	12	;désallocation des variables locales
+use = () def = ()	in = ()	 	out = ()	 		pop	ebp	;restaure la valeur de ebp
+use = () def = ()	in = ()	 	out = ()	 		ret	;
+use = () def = ()	in = ()	 	out = ()	 	main :	push	ebp	;sauvegarde la valeur de ebp
+use = () def = ()	in = ()	 	out = ()	 		mov	ebp,	esp	;nouvelle valeur de ebp
+use = () def = ()	in = ()	 	out = ()	 		sub	esp,	0	;allocation des variables locales
+use = () def = ()	in = ()	 	out = ()	 		sub	esp,	4	;allocation mémoire pour la valeur de retour
+use = () def = ()	in = ()	 	out = ()	 		call	initialiser	;
+use = () def = (11 )	in = ()	 	out = ()	 		pop	r11	;récupération de la valeur de retour
+use = () def = ()	in = ()	 	out = ()	 		push	10	;Param
+use = () def = ()	in = ()	 	out = ()	 		sub	esp,	4	;allocation mémoire pour la valeur de retour
+use = () def = ()	in = ()	 	out = ()	 		call	afficher	;
+use = () def = (12 )	in = ()	 	out = ()	 		pop	r12	;récupération de la valeur de retour
+use = () def = ()	in = ()	 	out = ()	 		add	esp,	4	;désallocation des arguments
+use = () def = ()	in = ()	 	out = ()	 		push	10	;Param
+use = () def = ()	in = ()	 	out = ()	 		sub	esp,	4	;allocation mémoire pour la valeur de retour
+use = () def = ()	in = ()	 	out = ()	 		call	trier	;
+use = () def = (13 )	in = ()	 	out = ()	 		pop	r13	;récupération de la valeur de retour
+use = () def = ()	in = ()	 	out = ()	 		add	esp,	4	;désallocation des arguments
+use = () def = ()	in = ()	 	out = ()	 		push	10	;Param
+use = () def = ()	in = ()	 	out = ()	 		sub	esp,	4	;allocation mémoire pour la valeur de retour
+use = () def = ()	in = ()	 	out = ()	 		call	afficher	;
+use = () def = (14 )	in = ()	 	out = ()	 		pop	r14	;récupération de la valeur de retour
+use = () def = ()	in = ()	 	out = ()	 		add	esp,	4	;désallocation des arguments
+use = () def = ()	in = ()	 	out = ()	 		add	esp,	0	;désallocation des variables locales
+use = () def = ()	in = ()	 	out = ()	 		pop	ebp	;restaure la valeur de ebp
+use = () def = ()	in = ()	 	out = ()	 		ret	;

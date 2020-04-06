@@ -1,22 +1,45 @@
 package sa;
 import java.util.*;
+import java.io.*;
 import ts.*;
 
 public class SaEval extends SaDepthFirstVisitor <Integer> {
     private Ts tableGlobale;
     private SaEnvironment curEnv;
     private int[] varGlob;
-    
+    private ArrayList<String> programOutput = new ArrayList<String>();
+      
     public SaEval(SaNode root, Ts tableGlobale){
-	this.tableGlobale = tableGlobale;
-	curEnv = null;
-	varGlob = new int[tableGlobale.nbVar()];
+	    this.tableGlobale = tableGlobale;
+	    curEnv = null;
+	    varGlob = new int[tableGlobale.nbVar()];
 
-	SaAppel appelMain = new SaAppel("main", null);
-	appelMain.tsItem = tableGlobale.getFct("main");
-	
-	appelMain.accept(this);
+	    SaAppel appelMain = new SaAppel("main", null);
+	    appelMain.tsItem = tableGlobale.getFct("main");
+	    
+	    appelMain.accept(this);
     }
+
+    public void affiche(String baseFileName){
+  	  String fileName;
+  	  PrintStream out = System.out;
+  
+  	  if (baseFileName != null){
+  	    try {
+  		    baseFileName = baseFileName;
+  		    fileName = baseFileName + ".saout";
+  		    out = new PrintStream(fileName);
+  	    }
+  	    
+  	    catch (IOException e) {
+  		    System.err.println("Error: " + e.getMessage());
+  	    }
+  	  }
+      for (String line : programOutput)
+        out.println(line);
+    }
+
+
     
     public void defaultIn(SaNode node)
     {
@@ -71,7 +94,7 @@ public class SaEval extends SaDepthFirstVisitor <Integer> {
     {
 	defaultIn(node);
 	int arg = node.getArg().accept(this);
-	System.out.println(arg);
+	programOutput.add(String.valueOf(arg));
 	defaultOut(node);
 	return 1;
     }

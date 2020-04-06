@@ -1,0 +1,34 @@
+iter num = 17
+use = () def = ()	in = ()	 	out = ()	 		call	main	;
+use = () def = (6 )	in = ()	 	out = ()	 		mov	ebx,	0	; valeur de retour du programme
+use = () def = (7 )	in = ()	 	out = ()	 		mov	eax,	1	;
+use = () def = ()	in = ()	 	out = ()	 		int 0x80	;
+use = () def = ()	in = ()	 	out = ()	 	main :	push	ebp	;sauvegarde la valeur de ebp
+use = () def = ()	in = ()	 	out = ()	 		mov	ebp,	esp	;nouvelle valeur de ebp
+use = () def = ()	in = ()	 	out = ()	 		sub	esp,	0	;allocation des variables locales
+use = () def = (2 )	in = ()	 	out = (2 )	 		mov	r2,	2	;
+use = (2 ) def = (2 )	in = (2 )	 	out = (2 )	 		imul	r2,	3	;
+use = () def = (3 )	in = (2 )	 	out = (2 3 )	 		mov	r3,	1	;
+use = (2 3 ) def = (3 )	in = (2 3 )	 	out = (3 )	 		add	r3,	r2	;
+use = () def = (1 )	in = (3 )	 	out = (1 3 )	 		mov	r1,	1	;Affect
+use = (3 ) def = ()	in = (1 3 )	 	out = (1 )	 		cmp	r3,	0	;JumpIfLess 1
+use = () def = ()	in = (1 )	 	out = (1 )	 		jl	l2	;JumpIfLess 2
+use = () def = (1 )	in = ()	 	out = (1 )	 		mov	r1,	0	;Affect
+use = () def = (5 )	in = (1 )	 	out = (1 5 )	 	l2 :	mov	r5,	2	;
+use = (5 ) def = (5 )	in = (1 5 )	 	out = (1 5 )	 		add	r5,	2	;
+use = () def = (4 )	in = (1 5 )	 	out = (1 4 5 )	 		mov	r4,	1	;Affect
+use = (5 ) def = ()	in = (1 4 5 )	 	out = (1 4 )	 		cmp	r5,	0	;JumpIfLess 1
+use = () def = ()	in = (1 4 )	 	out = (1 4 )	 		jl	l3	;JumpIfLess 2
+use = () def = (4 )	in = (1 )	 	out = (1 4 )	 		mov	r4,	0	;Affect
+use = (1 ) def = ()	in = (1 4 )	 	out = (4 )	 	l3 :	cmp	r1,	0	;JumpIfEqual 1
+use = () def = ()	in = (4 )	 	out = (4 )	 		je	l1	;JumpIfEqual 2
+use = (4 ) def = ()	in = (4 )	 	out = ()	 		cmp	r4,	0	;JumpIfEqual 1
+use = () def = ()	in = ()	 	out = ()	 		je	l1	;JumpIfEqual 2
+use = () def = (0 )	in = ()	 	out = (0 )	 		mov	r0,	1	;Affect
+use = () def = ()	in = (0 )	 	out = (0 )	 		jmp	l0	;Jump
+use = () def = (0 )	in = ()	 	out = (0 )	 	l1 :	mov	r0,	0	;Affect
+use = (0 ) def = (8 )	in = (0 )	 	out = ()	 	l0 :	mov	eax,	r0	;Write 1
+use = () def = ()	in = ()	 	out = ()	 		call	iprintLF	;Write 2
+use = () def = ()	in = ()	 	out = ()	 		add	esp,	0	;désallocation des variables locales
+use = () def = ()	in = ()	 	out = ()	 		pop	ebp	;restaure la valeur de ebp
+use = () def = ()	in = ()	 	out = ()	 		ret	;
