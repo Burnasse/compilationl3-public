@@ -16,8 +16,8 @@ public class Compiler {
 		int RegisterNb = 4;
 		try {
 			if (0 <= args.length) {
-				br = new PushbackReader(new FileReader("test/input/add1.l"));
-				baseName = removeSuffix("test/input/add1.l", ".l");
+				br = new PushbackReader(new FileReader("test/input/tantque.l"));
+				baseName = removeSuffix("test/input/tantque.l", ".l");
 			} else {
 				System.out.println("il manque un argument");
 				System.exit(1);
@@ -48,13 +48,13 @@ public class Compiler {
 
 			System.out.println("[PRINT TS]");
 			table.afficheTout(baseName);
-
+/*
 			System.out.print("[EXEC SA] ");
 			SaEval saEval = new SaEval(saRoot, table);
 
 			System.out.println("[SA OUT]");
 			saEval.affiche(baseName);
-
+*/
 			System.out.print("[BUILD C3A] ");
 			C3a c3a = new Sa2c3a(saRoot).getC3a();
 

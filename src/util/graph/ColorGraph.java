@@ -5,6 +5,7 @@ import util.intset.*;
 import java.util.*;
 import java.io.*;
 
+
 public class ColorGraph {
     public  Graph          G;
     public  int            R;
@@ -22,8 +23,10 @@ public class ColorGraph {
 	pile         = new Stack<Integer>(); 
 	R            = G.nodeCount();
 	couleur      = new int[R];
+	/*
 	removed      = new IntSet(R);
 	spill        = new IntSet(R);
+	*/
 	int2Node     = G.nodeArray();
 	for(int v=0; v < R; v++){
 	    int preColor = phi[v];
@@ -37,7 +40,7 @@ public class ColorGraph {
     /*-------------------------------------------------------------------------------------------------------------*/
     /* associe une couleur à tous les sommets se trouvant dans la pile */
     /*-------------------------------------------------------------------------------------------------------------*/
-    
+
     public void selection()
     {
     }
@@ -48,6 +51,7 @@ public class ColorGraph {
     
     public IntSet couleursVoisins(int t)
     {
+        return new IntSet(1);
     }
     
     /*-------------------------------------------------------------------------------------------------------------*/
@@ -56,6 +60,7 @@ public class ColorGraph {
     
     public int choisisCouleur(IntSet colorSet)
     {
+        return 0;
     }
     
     /*-------------------------------------------------------------------------------------------------------------*/
@@ -64,6 +69,7 @@ public class ColorGraph {
     
     public int nbVoisins(int t)
     {
+        return 0;
     }
 
     /*-------------------------------------------------------------------------------------------------------------*/
@@ -75,6 +81,7 @@ public class ColorGraph {
 
     public int simplification()
     {
+        return 0;
     }
     
     /*-------------------------------------------------------------------------------------------------------------*/
