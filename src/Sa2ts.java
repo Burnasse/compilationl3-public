@@ -63,7 +63,6 @@ public class Sa2ts extends SaDepthFirstVisitor <Void> {
 
     @Override
     public Void visit(SaAppel node) {
-        node.getArguments().accept(this);
 
         if (!table.fonctions.containsKey(node.getNom()))
             System.out.println("NULL");
@@ -91,21 +90,8 @@ public class Sa2ts extends SaDepthFirstVisitor <Void> {
     public Void visit(SaVarIndicee node) {
         node.getIndice().accept(this);
 
-        if (node.getIndice() == null)
-            System.out.println("NULL");
-
-        if (table.variables.containsKey(node.getNom()))
-            System.out.println("NULL");
-
-        for (TsItemFct fct : table.fonctions.values()) {
-            if (fct.getTable().variables.containsKey(node.getNom()))
-                System.out.println("NULL");
-        }
-
-
-
-        if (table.variables.containsKey(node.getNom()))
-            System.out.println("NULL");
+        if(table.getVar(node.getNom()) == null)
+            System.out.println(node.getNom() + " n'existe pas");
 
         node.tsItem = new TsItemVar(node.getNom(),1);
         return  null;

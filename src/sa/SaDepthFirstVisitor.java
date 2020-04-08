@@ -62,9 +62,6 @@ package sa;
 // EXP -> lire
 
 
-import ts.TsItemFct;
-import ts.TsItemVar;
-
 public class SaDepthFirstVisitor <T> implements SaVisitor <T>{
 	//   private NouvelleClasse x;
 	public void defaultIn(SaNode node)
@@ -89,11 +86,9 @@ public class SaDepthFirstVisitor <T> implements SaVisitor <T>{
 
 	// DEC -> var id taille
 	public T visit(SaDecTab node){
-
-	defaultIn(node);
-	defaultOut(node);
-	return null;
-
+		defaultIn(node);
+		defaultOut(node);
+		return null;
 	}
 
 	public T visit(SaExp node)
@@ -146,13 +141,20 @@ public class SaDepthFirstVisitor <T> implements SaVisitor <T>{
 	// DEC -> fct id LDEC LDEC LINST
 	public T visit(SaDecFonc node)
 	{
-		return (T) new TsItemFct(node.tsItem.identif,node.tsItem.nbArgs, node.tsItem.getTable(), node.tsItem.saDecFonc);
+		defaultIn(node);
+		if(node.getParametres() != null) node.getParametres().accept(this);
+		if(node.getVariable() != null) node.getVariable().accept(this);
+		node.getCorps().accept(this);
+		defaultOut(node);
+		return null;
 	}
 
 	// DEC -> var id
 	public T visit(SaDecVar node)
 	{
-		return (T) new TsItemVar(node.getNom(), 1);
+		defaultIn(node);
+		defaultOut(node);
+		return null;
 	}
 
 	public T visit(SaInstAffect node)
@@ -177,7 +179,9 @@ public class SaDepthFirstVisitor <T> implements SaVisitor <T>{
 
 	public T visit(SaVarSimple node)
 	{
-		return (T) new TsItemVar(node.tsItem.identif,node.tsItem.getTaille());
+		defaultIn(node);
+		defaultOut(node);
+		return null;
 	}
 
 	public T visit(SaAppel node)
@@ -333,7 +337,10 @@ public class SaDepthFirstVisitor <T> implements SaVisitor <T>{
 	}
 	public T visit(SaVarIndicee node)
 	{
-		return (T) new TsItemVar(node.tsItem.identif,node.tsItem.getTaille());
+		defaultIn(node);
+		node.getIndice().accept(this);
+		defaultOut(node);
+		return null;
 	}
 
 }

@@ -16,8 +16,8 @@ public class Compiler {
 		int RegisterNb = 4;
 		try {
 			if (0 <= args.length) {
-				br = new PushbackReader(new FileReader("test/input/add1.l"));
-				baseName = removeSuffix("test/input/add1.l", ".l");
+				br = new PushbackReader(new FileReader("test/input/varloc1.l"));
+				baseName = removeSuffix("test/input/varloc1.l", ".l");
 			} else {
 				System.out.println("il manque un argument");
 				System.exit(1);
