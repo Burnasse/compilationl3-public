@@ -16,8 +16,8 @@ public class Compiler {
 		int RegisterNb = 4;
 		try {
 			if (0 <= args.length) {
-				br = new PushbackReader(new FileReader("test/input/tantque.l"));
-				baseName = removeSuffix("test/input/tantque.l", ".l");
+				br = new PushbackReader(new FileReader("test/input/add1.l"));
+				baseName = removeSuffix("test/input/add1.l", ".l");
 			} else {
 				System.out.println("il manque un argument");
 				System.exit(1);
@@ -64,12 +64,12 @@ public class Compiler {
 			System.out.println("[C3A OUT]");
 			C3aEval c3aEval = new C3aEval(c3a, table);
 			c3aEval.affiche(baseName);
-
+*/
 			System.out.print("[BUILD PRE NASM] ");
 			Nasm nasm = new C3a2nasm(c3a, table).getNasm();
 			System.out.println("[PRINT PRE NASM] ");
 			nasm.affichePre(baseName);
-
+/*
 			System.out.print("[BUILD FG] ");
 			Fg fg = new Fg(nasm);
 			System.out.print("[PRINT FG] ");
