@@ -16,8 +16,8 @@ public class C3a2nasm implements C3aVisitor<NasmOperand> {
         this.tableGlobale = table;
 
         head();
-        for (int i=0; this.c3a.listeInst.size() > i; i++) {
-            this.c3a.listeInst.get(i).accept(this);
+        for (C3aInst inst : c3a.listeInst) {
+            inst.accept(this);
         }
     }
 
@@ -300,33 +300,33 @@ public class C3a2nasm implements C3aVisitor<NasmOperand> {
 
     @Override
     public NasmOperand visit(C3aTemp oper) {
-        NasmRegister nasmRegister = nasm.newRegister();
-        nasmRegister.val = oper.num;
-
-        return nasmRegister;
+        return new NasmRegister(oper.num);
     }
 
     @Override
     public NasmOperand visit(C3aVar oper) {
+        NasmOperand op;
+        if(oper.item.portee == tableGlobale)
+            op = new NasmLabel(oper.item.identif);
+        else
+            op = new NasmRegister(Nasm.REG_EBP);
 
-        if (tableGlobale.getVar(oper.item.identif) != null) {
-            NasmLabel label = new NasmLabel(oper.item.identif);
-            if (oper.index != null)
-                return new NasmAddress(label, '+', oper.index.accept(this));
+        if (oper.item.portee == tableGlobale && oper.item.getTaille() == 1)
+            return new NasmAddress(op);
+
+        char symb = oper.item.isParam || oper.item.portee == tableGlobale ? '+' : '-';
+        NasmConstant off;
+
+        if (oper.item.getTaille() > 1)
+            off = new NasmConstant(((C3aConstant) oper.index).val);
+        else{
+            if(oper.item.isParam)
+                off = new NasmConstant((oper.item.portee.nbArg() - oper.item.getAdresse()) + 2);
             else
-                return new NasmAddress(label);
+                off = new NasmConstant(oper.item.getAdresse() +1);
         }
-        else if (tableGlobale.getFct(currentFct.identif).getTable().getVar(oper.item.identif).isParam) {
-            NasmRegister nasmRegister = new NasmRegister(Nasm.REG_EBP);
-            nasmRegister.colorRegister(Nasm.REG_EBP);
-            NasmConstant offset = new NasmConstant( 2 + tableGlobale.getFct(currentFct.identif).getNbArgs() - oper.item.adresse);
-            return new NasmAddress(nasmRegister, '+', offset);
-        }
-        else {
-            NasmRegister nasmRegister = new NasmRegister(Nasm.REG_EBP);
-            nasmRegister.colorRegister(Nasm.REG_EBP);
-            return new NasmAddress(nasmRegister, '-', new NasmConstant(oper.item.adresse + oper.item.taille));
-        }
+
+        return new NasmAddress(op, symb, off);
     }
 
     @Override
