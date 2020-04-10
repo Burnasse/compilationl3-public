@@ -14,7 +14,7 @@ public class Sa2ts extends SaDepthFirstVisitor <Void> {
     @Override
     public Void visit(SaDecTab node) {
         if (/*item.isParam  || */table.variables.containsKey(node.getNom()))
-            System.out.println("NULL");
+            System.out.println(node.getNom() + " n'existe pas");
 
         table.addVar(node.getNom(), node.getTaille());
 
@@ -27,7 +27,7 @@ public class Sa2ts extends SaDepthFirstVisitor <Void> {
         node.getCorps().accept(this);
 
         if (table.fonctions.containsKey(node.getNom()))
-            System.out.println("NULL");
+            System.out.println("La fonction " + node.getNom() + " n'existe pas");
 
         if(node.getParametres() == null){
             table.addFct(node.getNom(), 0, new Ts(), node);
@@ -44,7 +44,7 @@ public class Sa2ts extends SaDepthFirstVisitor <Void> {
     @Override
     public Void visit(SaDecVar node) {
         if (table.variables.containsKey(node.getNom()))
-            System.out.println("NULL");
+            System.out.println(node.getNom() + " n'existe pas");
 
         table.addVar(node.getNom(), 1);
         node.tsItem = new TsItemVar(node.getNom(),1);
@@ -65,9 +65,9 @@ public class Sa2ts extends SaDepthFirstVisitor <Void> {
     public Void visit(SaAppel node) {
 
         if (!table.fonctions.containsKey(node.getNom()))
-            System.out.println("NULL");
+            System.out.println("La fonction " + node.getNom() + " n'existe pas");
         if (table.fonctions.containsKey("main") && table.getFct("main").nbArgs == 0)
-            System.out.println("NULL");
+            System.out.println("main invalide: trop d'arguments");
 
 
         int size;
