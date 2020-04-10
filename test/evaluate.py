@@ -15,6 +15,7 @@ classpath = ""
 ################################################################################
 def compileCompiler() :
   print("Compiling Compiler.java...", end="", file=sys.stderr)
+
   returnCode = subprocess.Popen("cd %s && javac Compiler.java"%srcPath, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE).wait()
   if returnCode == 0 :
     print("Done", file=sys.stderr)
@@ -32,7 +33,7 @@ def deleteClasses() :
     for filename in files :
       if os.path.splitext(filename)[1] == ".class" :
         os.remove(root+"/"+filename)
-        
+
   return classpath
 ################################################################################
 
@@ -50,7 +51,7 @@ def findClasspath() :
       if os.path.splitext(filename)[1] == ".class" :
         classpath += ("" if len(classpath) == 0 else ":") + root
         break
-        
+
   return classpath
 ################################################################################
 
@@ -125,7 +126,7 @@ def evaluateSa(inputFiles) :
     if not os.path.isfile(inputPath+saFilename) :
       evaluation[1]["notfound"].append(saFilename)
       continue
-    
+
     saRef = refPath+"sa-ref/"+saFilename
     if not os.path.isfile(saRef) :
       print("ATTENTION : Fichier non trouvé : %s"%saRef, file=sys.stderr)
@@ -149,7 +150,7 @@ def evaluateDiff(inputFiles, extension, path, name) :
     if not os.path.isfile(inputPath+producedFile) :
       evaluation[1]["notfound"].append(producedFile)
       continue
-    
+
     ref = refPath+path+producedFile
     if not os.path.isfile(ref) :
       print("ATTENTION : Fichier non trouvé : %s"%ref, file=sys.stderr)
@@ -246,4 +247,3 @@ if __name__ == "__main__" :
   printEvaluationResult(sys.stdout, c3aEvaluation, useColor)
   printEvaluationResult(sys.stdout, nasmEvaluation, useColor)
 ################################################################################
-

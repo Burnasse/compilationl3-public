@@ -307,7 +307,7 @@ public class C3a2nasm implements C3aVisitor<NasmOperand> {
     public NasmOperand visit(C3aVar oper) {
         NasmOperand op;
         if(oper.item.portee == tableGlobale)
-            op = new NasmLabel(oper.item.identif);
+            op = new NasmRegister(Nasm.REG_EBP);
         else
             op = new NasmRegister(Nasm.REG_EBP);
 

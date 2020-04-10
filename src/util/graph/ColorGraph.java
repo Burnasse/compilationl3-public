@@ -23,10 +23,10 @@ public class ColorGraph {
 	pile         = new Stack<Integer>(); 
 	R            = G.nodeCount();
 	couleur      = new int[R];
-	/*
-	removed      = new IntSet(R);
-	spill        = new IntSet(R);
-	*/
+
+	enleves      = new IntSet(R);
+	deborde        = new IntSet(R);
+
 	int2Node     = G.nodeArray();
 	for(int v=0; v < R; v++){
 	    int preColor = phi[v];
@@ -43,6 +43,11 @@ public class ColorGraph {
 
     public void selection()
     {
+        while(!pile.empty()){
+            Integer s = pile.pop();
+            enleves.remove(s);
+            couleur[s] = choisisCouleur(couleursVoisins(s));
+        }
     }
     
     /*-------------------------------------------------------------------------------------------------------------*/
@@ -51,7 +56,19 @@ public class ColorGraph {
     
     public IntSet couleursVoisins(int t)
     {
-        return new IntSet(1);
+        IntSet color = new IntSet(K);
+        Node node = int2Node[t];
+
+        NodeList nodes = node.succ();
+
+        while(nodes != null){
+            if(couleur[nodes.head.mykey] >=0)
+                color.add(couleur[nodes.head.mykey]);
+
+            nodes = nodes.tail;
+        }
+
+        return color;
     }
     
     /*-------------------------------------------------------------------------------------------------------------*/
@@ -60,7 +77,10 @@ public class ColorGraph {
     
     public int choisisCouleur(IntSet colorSet)
     {
-        return 0;
+        for (int i = 0; i < colorSet.getSize(); i++)
+            if(!colorSet.isMember(i)) return i;
+
+        return NOCOLOR;
     }
     
     /*-------------------------------------------------------------------------------------------------------------*/
@@ -69,7 +89,17 @@ public class ColorGraph {
     
     public int nbVoisins(int t)
     {
-        return 0;
+        int nbVoisins = 0;
+        Node node = int2Node[t];
+
+        NodeList nodes = node.succ();
+
+        while(nodes != null){
+            if(!(enleves.isMember(nodes.head.mykey)))
+                nbVoisins++;
+            nodes = nodes.tail;
+        }
+        return nbVoisins;
     }
 
     /*-------------------------------------------------------------------------------------------------------------*/
@@ -79,9 +109,26 @@ public class ColorGraph {
     /* à la fin du processus, le graphe peut ne pas être vide, il s'agit des temporaires qui ont au moins k voisin */
     /*-------------------------------------------------------------------------------------------------------------*/
 
-    public int simplification()
+    public void simplification()
     {
-        return 0;
+        boolean isModif = true;
+
+        while(pile.size() != R && isModif) {
+            isModif = false;
+
+            for(int i = 0; i < R; i++) {
+                if(!(pile.contains(i))) {
+                    if (nbVoisins(i) < K) {
+                        pile.push(i);
+                        enleves.add(i);
+                        isModif = true;
+                    }
+                    else {
+                        debordement();
+                    }
+                }
+            }
+        }
     }
     
     /*-------------------------------------------------------------------------------------------------------------*/
@@ -89,6 +136,22 @@ public class ColorGraph {
     
     public void debordement()
     {
+
+        while(pile.size() != R){
+            int som = 0;
+            for (int i =0 ;  i < R ; i++) {
+                if(!pile.contains(i)){
+                    som = i;
+                    break;
+                }
+            }
+
+            pile.push(som);
+            enleves.add(som);
+            deborde.add(som);
+            simplification();
+        }
+
     }
 
 
